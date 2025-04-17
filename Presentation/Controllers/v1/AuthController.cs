@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 [Route("api/v1/auth")]
 [ApiController]
@@ -24,6 +25,21 @@ public class AuthController : ControllerBase
     {
         LoginResponse response = await _authService.Login(request.Username, request.Password);
         return Ok(response);
+    }
+
+    [Authorize]
+    [HttpGet("jwt")]
+    public IActionResult JwtTest()
+    {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var role = User.FindFirstValue(ClaimTypes.Role);
+
+        return Ok(new
+        {
+            Message = "🔐 로그인된 사용자 정보입니다.",
+            UserId = userId,
+            Role = role
+        });
     }
 
     [Authorize(Roles = "Admin")]
