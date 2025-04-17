@@ -30,4 +30,9 @@ public class UserRepository : IUserRepository
     {
         return _context.AuthUser.FirstAsync(u => u.Username == username);
     }
+
+    public Task<AuthUser> FindByUserId(int userId)
+    {
+        return _context.AuthUser.FirstAsync(u => u.Id == userId);
+    }
 }

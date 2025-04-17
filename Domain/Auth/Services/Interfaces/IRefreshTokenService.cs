@@ -4,4 +4,5 @@
     Task<RefreshToken?> GetAsync(string token);
     Task MarkAsUsedAsync(RefreshToken token);
     Task InvalidateUserTokensAsync(int userId);
+    Task RemoveExpiredTokensAsync();
 }

@@ -30,7 +30,7 @@ public class AuthController : ControllerBase
     [HttpPost("refresh")]
     public async Task<IActionResult> Refresh([FromBody] RefreshRequest request)
     {
-        var response = await _authService.Refresh(request.RefreshToken, _authService.Get_jwtService());
+        var response = await _authService.Refresh(request.RefreshToken);
         return Ok(response);
     }
 

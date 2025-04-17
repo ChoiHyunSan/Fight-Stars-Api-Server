@@ -48,4 +48,17 @@ public class RefreshTokenService : IRefreshTokenService
 
         await _context.SaveChangesAsync();
     }
+
+    public async Task RemoveExpiredTokensAsync()
+    {
+        var expired = await _context.Set<RefreshToken>()
+            .Where(r => r.ExpiresAt <= DateTime.UtcNow)
+            .ToListAsync();
+
+        if (expired.Any())
+        {
+            _context.RemoveRange(expired);
+            await _context.SaveChangesAsync();
+        }
+    }
 }

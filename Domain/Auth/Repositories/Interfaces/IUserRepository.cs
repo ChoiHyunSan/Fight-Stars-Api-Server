@@ -5,4 +5,5 @@ public interface IUserRepository
     Task<bool> CheckDuplicatedUsername(string username);
     Task<bool> CheckDuplicatedEmail(string email);
     Task<AuthUser> FindByUsername(string userName);
+    Task<AuthUser> FindByUserId(int userId);
 }

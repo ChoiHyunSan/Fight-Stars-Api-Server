@@ -37,11 +37,6 @@
         return loginResponse;
     }
 
-    public IJwtService Get_jwtService()
-    {
-        return _jwtService;
-    }
-
     public async Task<RefreshResponse> Refresh(string token)
     {
         var refreshToken = await _refreshTokenService.GetAsync(token);
@@ -50,7 +45,15 @@
             throw new ApiException(AuthErrorCodes.InvalidToken);
         }
         await _refreshTokenService.MarkAsUsedAsync(refreshToken);
-        string newAccessToken = _jwtService.GenerateToken(refreshToken.UserId, "User");
+
+        var user = await _userRepository.FindByUserId(refreshToken.UserId);
+        if(user == null)
+        {
+            throw new ApiException(AuthErrorCodes.UserNotFound);
+        }
+
+        var newAccessToken = _jwtService.GenerateToken(refreshToken.UserId, user.Role);
+        var newRefreshToken = _refreshTokenService.CreateAsync(user.Id);
 
         return new RefreshResponse
         {
