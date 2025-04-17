@@ -2,6 +2,11 @@
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 
+
+/// <summary>
+/// AuthController V1
+/// 인증 관련 API 컨트롤러
+/// </summary>
 [Route("api/v1/auth")]
 [ApiController]
 public class AuthController : ControllerBase
@@ -13,6 +18,11 @@ public class AuthController : ControllerBase
         _authService = authService;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="request"></param>
+    /// <returns></returns>
     [HttpPost("register")]
     public async Task<IActionResult> RegisterLocalAccount([FromBody] RegisterRequest request)
     {

@@ -53,11 +53,12 @@
         }
 
         var newAccessToken = _jwtService.GenerateToken(refreshToken.UserId, user.Role);
-        var newRefreshToken = _refreshTokenService.CreateAsync(user.Id);
+        var newRefreshToken = await _refreshTokenService.CreateAsync(user.Id);
 
         return new RefreshResponse
         {
-            accessToken = newAccessToken
+            AccessToken = newAccessToken,
+            RefreshToken = newRefreshToken.Token
         };
     }
 

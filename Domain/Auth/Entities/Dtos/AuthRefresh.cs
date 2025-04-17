@@ -5,6 +5,6 @@
 
 public class RefreshResponse
 {
-    public string accessToken { get; set; } = string.Empty;
-    public string refreshToken { get; set; } = string.Empty;
+    public string AccessToken { get; set; } = string.Empty;
+    public string RefreshToken { get; set; } = string.Empty;
 }
