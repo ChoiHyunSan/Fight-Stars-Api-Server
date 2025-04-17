@@ -13,11 +13,11 @@ public class JwtUtils
         _configuration = configuration;
     }
 
-    public string GenerateToken(string userId, string role)
+    public string GenerateToken(int userId, string role)
     {
         var claims = new[]
-               {
-            new Claim(ClaimTypes.NameIdentifier, userId),
+        {
+            new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
             new Claim(ClaimTypes.Role, role) 
         };
 

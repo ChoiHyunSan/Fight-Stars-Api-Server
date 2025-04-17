@@ -6,7 +6,7 @@ public class AuthUser
     public int Id { get; private set; }
 
     [Required]
-    public string UserName { get; protected set; }
+    public string Username { get; protected set; }
 
     [MaxLength(100)]
     public string Password { get; protected set; }
@@ -17,17 +17,21 @@ public class AuthUser
     [Required]
     public DateTime CreatedAt { get; protected set; }
 
+    [Required]
+    public string Role { get; protected set; }
+
     protected AuthUser() { }
 
     public static AuthUser CreateWithLocal(string username, string email, string password)
         => new AuthUser(username, email, password);
 
-    private AuthUser(string username, string email, string password)
+    private AuthUser(string username, string email, string password, string role = "User")
     {
-        UserName = username;
+        Username = username;
         Email = email;
         Password = password;
         CreatedAt = DateTime.UtcNow;
+        Role = role;
     }
 }
 

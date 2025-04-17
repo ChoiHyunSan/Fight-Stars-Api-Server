@@ -2,13 +2,36 @@
 public class AuthService : IAuthService
 {
     private readonly IUserRepository _userRepository;
+    private readonly JwtUtils _jwtUtils;
 
-    public AuthService(IUserRepository userRepository)
+    public AuthService(IUserRepository userRepository, JwtUtils jwtUtils)
     {
         _userRepository = userRepository;
+        _jwtUtils = jwtUtils;
     }
 
-    public async Task<AuthUser> RegisterWithLocalAsync(string username, string email, string password)
+    public async Task<LoginResponse> Login(string username, string password)
+    {
+        AuthUser user = await _userRepository.FindByUsername(username);
+        if(user == null || !PasswordUtils.VerifyPassword(password, user.Password))
+        {
+            throw new ApiException(AuthErrorCodes.InvalidCredentials);
+        }
+
+        string token = _jwtUtils.GenerateToken(user.Id, user.Role);
+
+        var loginResponse = new LoginResponse
+        {
+            Token = token,
+            UserId = user.Id,
+            UserName = user.Username,
+            Role = user.Role
+        };
+
+        return loginResponse;
+    }
+
+    public async Task<AuthUser> RegisterAsync(string username, string email, string password)
     {
         if (await _userRepository.CheckDuplicatedUsername(username))
         {

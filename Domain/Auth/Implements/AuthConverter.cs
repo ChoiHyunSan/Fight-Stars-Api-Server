@@ -1,10 +1,11 @@
-﻿public class AuthConverter
+﻿
+public class AuthConverter
 {
     public static RegisterResponse toRegisterResponse(AuthUser user)
     {
         return new RegisterResponse
         {
-            UserName = user.UserName,
+            UserName = user.Username,
             Email = user.Email,
             CreatedAt = user.CreatedAt
         };

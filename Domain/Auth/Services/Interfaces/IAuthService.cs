@@ -1,4 +1,5 @@
 ﻿public interface IAuthService
 {
-    Task<AuthUser> RegisterWithLocalAsync(string username, string email, string password);
+    Task<LoginResponse> Login(string userName, string password);
+    Task<AuthUser> RegisterAsync(string username, string email, string password);
 }

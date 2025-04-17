@@ -15,14 +15,15 @@ public class AuthController : ControllerBase
     [HttpPost("register")]
     public async Task<IActionResult> RegisterLocalAccount([FromBody] RegisterRequest request)
     {
-        var registerUser = await _authService.RegisterWithLocalAsync(request.UserName, request.Email, request.Password);
+        var registerUser = await _authService.RegisterAsync(request.UserName, request.Email, request.Password);
         return Ok(AuthConverter.toRegisterResponse(registerUser));
     }
 
     [HttpPost("login")]
-    public Task<IActionResult> Login([FromBody] LoginRequest request)
+    public async Task<IActionResult> Login([FromBody] LoginRequest request)
     {
-        return Task.FromResult<IActionResult>(Ok());
+        LoginResponse response = await _authService.Login(request.Username, request.Password);
+        return Ok(response);
     }
 
     [Authorize(Roles = "Admin")]

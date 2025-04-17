@@ -18,11 +18,16 @@ public class UserRepository : IUserRepository
 
     public Task<bool> CheckDuplicatedUsername(string username)
     {
-        return _context.AuthUser.AnyAsync(u => u.UserName == username);
+        return _context.AuthUser.AnyAsync(u => u.Username == username);
     }
 
     public Task<bool> CheckDuplicatedEmail(string email)
     {
         return _context.AuthUser.AnyAsync(u => u.Email == email);
+    }
+
+    public Task<AuthUser> FindByUsername(string username)
+    {
+        return _context.AuthUser.FirstAsync(u => u.Username == username);
     }
 }

@@ -41,6 +41,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddAuthorization();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<JwtUtils, JwtUtils>();
 
 var app = builder.Build();
 
