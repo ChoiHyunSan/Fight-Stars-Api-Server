@@ -1,0 +1,6 @@
+@FightStars_ApiServer_HostAddress = http://localhost:5291
+
+GET {{FightStars_ApiServer_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -1,0 +1,62 @@
+# Build results
+bin/
+obj/
+out/
+
+# User-specific files
+*.user
+*.userosscache
+*.suo
+*.sln.docstates
+
+# Rider / VSCode / VS settings
+.idea/
+.vscode/
+*.code-workspace
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# ASP.NET artifacts
+wwwroot/
+node_modules/
+dist/
+.env
+.env.*
+
+# EF Core
+Migrations/
+
+# dotnet secrets, keys, etc.
+secrets.json
+*.pfx
+*.key
+*.pem
+*.cer
+
+# Launch settings
+**/Properties/launchSettings.json
+
+# Localdb / SQLite / MySQL dumps
+*.mdf
+*.ldf
+*.db
+*.sql
+
+# Test Results
+TestResults/
+
+# npm/yarn cache
+.npm/
+.yarn/
+
+# JWT, OAuth temp keys
+temp-keys/
+
+# 앱 설정 파일 무시
+appsettings*.json
+secrets.json
