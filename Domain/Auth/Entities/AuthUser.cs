@@ -36,6 +36,14 @@ public class AuthUser
     public static AuthUser CreateWithLocal(string username, string email, string password)
         => new AuthUser(username, email, password);
 
+    public void Verify(string password)
+    {
+        if(PasswordUtils.VerifyPassword(password, Password))
+        {
+            throw new ApiException(AuthErrorCodes.InvalidCredentials);
+        }
+    }
+
     private AuthUser(string username, string email, string password, string role = "User")
     {
         Username = username;

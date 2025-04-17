@@ -35,4 +35,12 @@ public class RefreshToken
 
     [Required]
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow; // 생성 시간
+
+    public void Verify()
+    {
+        if (IsUsed || IsRevoked || ExpiresAt < DateTime.UtcNow)
+        {
+            throw new ApiException(AuthErrorCodes.InvalidToken);
+        }
+    }
 }
