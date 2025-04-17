@@ -1,7 +1,12 @@
-﻿
+﻿using System.ComponentModel.DataAnnotations;
 
-using System.ComponentModel.DataAnnotations;
+/***************************
 
+      RegisterRequest
+
+***************************/
+// Description : 회원가입 요청 DTO
+// Author : ChoiHyunSan
 public class RegisterRequest
 {
     [Required]
@@ -19,6 +24,13 @@ public class RegisterRequest
     public string Password { get; set; }
 }
 
+/***************************
+
+      RegisterResponse
+
+***************************/
+// Description : 회원가입 요청 DTO
+// Author : ChoiHyunSan
 public class RegisterResponse
 {
     public string UserName { get; set; }

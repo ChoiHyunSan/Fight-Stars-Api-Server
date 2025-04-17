@@ -1,5 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
+/***************************
+
+       UserRepository
+
+***************************/
+// Description
+// : IUserRepository 인터페이스를 구현한 클래스입니다.
+//   AuthUser 엔티티에 대한 CRUD 작업을 수행합니다.
+//
+// Author : ChoiHyunSan
 public class UserRepository : IUserRepository
 {
     private readonly AppDbContext _context;

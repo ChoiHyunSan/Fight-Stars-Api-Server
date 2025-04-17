@@ -1,4 +1,13 @@
-﻿public class AuthErrorCodes
+﻿/***************************
+
+        AuthErrorCodes
+
+***************************/
+// Description
+// : 인증 관련 에러 코드 정의 
+//
+// Author : ChoiHyunSan
+public class AuthErrorCodes
 {
     public static readonly ErrorDetail EmailAlreadyExists = new("이미 사용 중인 이메일입니다.", 409);
     public static readonly ErrorDetail UsernameAlreadyExists = new("이미 사용 중인 사용자 이름입니다.", 409);

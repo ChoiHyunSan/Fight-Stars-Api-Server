@@ -1,5 +1,16 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
+
+/***************************
+
+          AuthUser
+
+***************************/
+// Description
+// : 회원 인증 엔티티이며, 회원가입 및 로그인에 사용됩니다.
+//   회원가입 시에는 Username, Email, Password를 사용하여 생성됩니다.       
+//
+// Author : ChoiHyunSan
 public class AuthUser
 {
     [Key]

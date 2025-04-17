@@ -4,6 +4,16 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
+/***************************
+
+         JwtService
+
+***************************/
+// Description
+// : IJwtService 인터페이스를 구현한 클래스입니다.
+//   Jwt 토큰 발급 및 검증을 담당합니다.
+//
+// Author : ChoiHyunSan
 public class JwtService : IJwtService
 {
     private readonly IConfiguration _configuration;

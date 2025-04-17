@@ -1,4 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Swashbuckle.AspNetCore.Annotations;
+using System.ComponentModel.DataAnnotations;
+
+/***************************
+
+       LoginRequest
+
+***************************/
+// Description : 로그인 요청 DTO
+// Author : ChoiHyunSan
 
 public class LoginRequest
 {
@@ -12,6 +21,13 @@ public class LoginRequest
     public string Password { get; set; }
 }
 
+/***************************
+
+       LoginResponse
+
+***************************/
+// Description : 로그인 응답 DTO
+// Author : ChoiHyunSan
 public class LoginResponse
 {
     public string AccessToken { get; set; } = string.Empty;

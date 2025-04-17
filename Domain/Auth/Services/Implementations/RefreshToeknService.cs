@@ -1,5 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
+/***************************
+
+         JwtService
+
+***************************/
+// Description
+// : IRefreshTokenService 인터페이스를 구현한 클래스입니다.
+//   RefreshToken 엔티티에 대한 CRUD 작업을 수행합니다.
+//
+// Author : ChoiHyunSan
 public class RefreshTokenService : IRefreshTokenService
 {
     private readonly AppDbContext _context;

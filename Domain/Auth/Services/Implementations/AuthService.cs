@@ -1,4 +1,14 @@
-﻿public class AuthService : IAuthService
+﻿/***************************
+
+         AuthService
+
+***************************/
+// Description
+// : IAuthService 인터페이스를 구현한 AuthService 클래스입니다.
+//   AuthService는 사용자 인증 및 권한 부여를 처리합니다.    
+//
+// Author : ChoiHyunSan
+public class AuthService : IAuthService
 {
     private readonly IUserRepository _userRepository;
     private readonly IJwtService _jwtService;
