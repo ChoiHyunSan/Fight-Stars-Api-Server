@@ -4,11 +4,11 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-public class JwtUtils
+public class JwtService : IJwtService
 {
     private readonly IConfiguration _configuration;
 
-    public JwtUtils(IConfiguration configuration)
+    public JwtService(IConfiguration configuration)
     {
         _configuration = configuration;
     }
