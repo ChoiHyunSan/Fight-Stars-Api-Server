@@ -1,4 +1,15 @@
-﻿public class GlobalExceptionMiddleware
+﻿/***************************
+
+  GlobalExceptionMiddleware
+
+***************************/
+// Description
+// : API 호출 중 발생하는 예외를 처리하는 미들웨어입니다.
+//   ApiException을 처리하여 클라이언트에게 적절한 응답을 반환합니다.
+//   그 외의 예외는 500 상태 코드와 함께 서버 오류 메시지를 반환합니다.
+//
+// Author : ChoiHyunSan
+public class GlobalExceptionMiddleware
 {
     private readonly RequestDelegate _next;
     private readonly ILogger<GlobalExceptionMiddleware> _logger;

@@ -3,10 +3,18 @@ using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 
 
-/// <summary>
-/// AuthController V1
-/// 인증 관련 API 컨트롤러
-/// </summary>
+/***************************
+
+       AuthController
+
+***************************/
+// Description
+// : 인증 관련 API를 제공하는 컨트롤러입니다.
+//   회원가입, 로그인, JWT 토큰 갱신 등의 기능을 제공합니다.
+//   JWT 인증을 사용하여 보호된 리소스에 대한 액세스를 제어합니다.
+//
+// Author : ChoiHyunSan
+
 [Route("api/v1/auth")]
 [ApiController]
 public class AuthController : ControllerBase
