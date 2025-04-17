@@ -23,7 +23,14 @@ public class AuthController : ControllerBase
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] LoginRequest request)
     {
-        LoginResponse response = await _authService.Login(request.Username, request.Password);
+        var response = await _authService.Login(request.Username, request.Password);
+        return Ok(response);
+    }
+
+    [HttpPost("refresh")]
+    public async Task<IActionResult> Refresh([FromBody] RefreshRequest request)
+    {
+        var response = await _authService.Refresh(request.RefreshToken, _authService.Get_jwtService());
         return Ok(response);
     }
 

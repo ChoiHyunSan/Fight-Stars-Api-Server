@@ -9,7 +9,7 @@ public class RefreshTokenService : IRefreshTokenService
         _context = context;
     }
 
-    public async Task<RefreshToken> CreateAsync(string userId)
+    public async Task<RefreshToken> CreateAsync(int userId)
     {
         var refreshToken = new RefreshToken
         {
@@ -35,7 +35,7 @@ public class RefreshTokenService : IRefreshTokenService
         await _context.SaveChangesAsync();
     }
 
-    public async Task InvalidateUserTokensAsync(string userId)
+    public async Task InvalidateUserTokensAsync(int userId)
     {
         var tokens = await _context.Set<RefreshToken>()
             .Where(r => r.UserId == userId && !r.IsUsed && !r.IsRevoked)

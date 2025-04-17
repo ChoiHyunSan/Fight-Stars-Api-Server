@@ -10,7 +10,7 @@ public class RefreshToken
     public string Token { get; set; } = string.Empty;   // 실제 토큰 문자열
 
     [Required]
-    public string UserId { get; set; } = string.Empty; // 유저 식별 ID
+    public int UserId { get; set; } = -1; // 유저 식별 ID
 
     [Required]
     public DateTime ExpiresAt { get; set; }  // 토큰 만료 시각

@@ -1,7 +1,4 @@
-﻿
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
-
-public class AuthService : IAuthService
+﻿public class AuthService : IAuthService
 {
     private readonly IUserRepository _userRepository;
     private readonly IJwtService _jwtService;
@@ -26,7 +23,7 @@ public class AuthService : IAuthService
         }
 
         string accessToken = _jwtService.GenerateToken(user.Id, user.Role);
-        var refreshToken = await _refreshTokenService.CreateAsync(user.Id.ToString());
+        var refreshToken = await _refreshTokenService.CreateAsync(user.Id);
 
         var loginResponse = new LoginResponse
         {
@@ -38,6 +35,27 @@ public class AuthService : IAuthService
         };
 
         return loginResponse;
+    }
+
+    public IJwtService Get_jwtService()
+    {
+        return _jwtService;
+    }
+
+    public async Task<RefreshResponse> Refresh(string token)
+    {
+        var refreshToken = await _refreshTokenService.GetAsync(token);
+        if(refreshToken == null || refreshToken.IsUsed || refreshToken.IsRevoked || refreshToken.ExpiresAt < DateTime.UtcNow)
+        {
+            throw new ApiException(AuthErrorCodes.InvalidToken);
+        }
+        await _refreshTokenService.MarkAsUsedAsync(refreshToken);
+        string newAccessToken = _jwtService.GenerateToken(refreshToken.UserId, "User");
+
+        return new RefreshResponse
+        {
+            accessToken = newAccessToken
+        };
     }
 
     public async Task<AuthUser> RegisterAsync(string username, string email, string password)
