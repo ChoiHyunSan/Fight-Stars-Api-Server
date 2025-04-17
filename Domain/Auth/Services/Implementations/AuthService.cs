@@ -1,13 +1,20 @@
 ﻿
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
+
 public class AuthService : IAuthService
 {
     private readonly IUserRepository _userRepository;
-    private readonly JwtUtils _jwtUtils;
+    private readonly IJwtService _jwtService;
+    private readonly IRefreshTokenService _refreshTokenService;
 
-    public AuthService(IUserRepository userRepository, JwtUtils jwtUtils)
+    public AuthService(
+        IUserRepository userRepository, 
+        IJwtService jwtService, 
+        IRefreshTokenService refreshTokenService)
     {
         _userRepository = userRepository;
-        _jwtUtils = jwtUtils;
+        _jwtService = jwtService;
+        _refreshTokenService = refreshTokenService;
     }
 
     public async Task<LoginResponse> Login(string username, string password)
@@ -18,11 +25,13 @@ public class AuthService : IAuthService
             throw new ApiException(AuthErrorCodes.InvalidCredentials);
         }
 
-        string token = _jwtUtils.GenerateToken(user.Id, user.Role);
+        string accessToken = _jwtService.GenerateToken(user.Id, user.Role);
+        var refreshToken = await _refreshTokenService.CreateAsync(user.Id.ToString());
 
         var loginResponse = new LoginResponse
         {
-            Token = token,
+            AccessToken = accessToken,
+            RefreshToken = refreshToken.Token,
             UserId = user.Id,
             UserName = user.Username,
             Role = user.Role

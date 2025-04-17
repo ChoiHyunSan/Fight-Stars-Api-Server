@@ -3,5 +3,6 @@
 public class AppDbContext : DbContext
 {
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
-    public DbSet<AuthUser> AuthUser { get; set; } // 매핑할 테이블
+    public DbSet<AuthUser> AuthUser { get; set; } 
+    public DbSet<RefreshToken> RefreshToken { get; set; } 
 }
