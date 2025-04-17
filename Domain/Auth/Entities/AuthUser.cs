@@ -38,7 +38,7 @@ public class AuthUser
 
     public void Verify(string password)
     {
-        if(PasswordUtils.VerifyPassword(password, Password))
+        if(!PasswordUtils.VerifyPassword(password, Password))
         {
             throw new ApiException(AuthErrorCodes.InvalidCredentials);
         }
