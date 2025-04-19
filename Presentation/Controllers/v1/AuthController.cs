@@ -15,7 +15,7 @@ using System.Security.Claims;
 //
 // Author : ChoiHyunSan
 
-[Route("api/v1/auth")]
+[Route("api/auth")]
 [ApiController]
 public class AuthController : ControllerBase
 {
@@ -26,11 +26,6 @@ public class AuthController : ControllerBase
         _authService = authService;
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="request"></param>
-    /// <returns></returns>
     [HttpPost("register")]
     public async Task<IActionResult> RegisterLocalAccount([FromBody] RegisterRequest request)
     {
@@ -43,6 +38,13 @@ public class AuthController : ControllerBase
     {
         var response = await _authService.Login(request.Username, request.Password);
         return Ok(response);
+    }
+
+    [HttpPost("login/save")]
+    [Authorize]
+    public Task<IActionResult> SaveLogin()
+    {
+        return Task.FromResult<IActionResult>(Ok());
     }
 
     [HttpPost("refresh")]
