@@ -8,20 +8,24 @@
 //   AuthService는 사용자 인증 및 권한 부여를 처리합니다.    
 //
 // Author : ChoiHyunSan
+using System.Transactions;
+
 public class AuthService : IAuthService
 {
     private readonly IUserRepository _userRepository;
     private readonly IJwtService _jwtService;
     private readonly IRefreshTokenService _refreshTokenService;
-
+    private readonly IGameUserInitializer _gameUserInitializer;
     public AuthService(
         IUserRepository userRepository, 
         IJwtService jwtService, 
-        IRefreshTokenService refreshTokenService)
+        IRefreshTokenService refreshTokenService,
+        IGameUserInitializer gameUserInitializer)
     {
         _userRepository = userRepository;
         _jwtService = jwtService;
         _refreshTokenService = refreshTokenService;
+        _gameUserInitializer = gameUserInitializer;
     }
 
     public async Task<LoginResponse> Login(string username, string password)
@@ -94,6 +98,9 @@ public class AuthService : IAuthService
 
         // 사용자 생성 및 응답 반환
         var user = AuthUser.CreateWithLocal(username, email, PasswordUtils.HashPassword(password));
-        return await _userRepository.CreateAsync(user);
+        var authUser = await _userRepository.CreateAsync(user);
+        await _gameUserInitializer.InitializeNewUserAsync(authUser.Id, username);
+
+        return authUser;
     }
 }

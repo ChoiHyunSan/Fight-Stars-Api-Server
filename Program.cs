@@ -92,6 +92,9 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddScoped<IRefreshTokenService, RefreshTokenService>();
 builder.Services.AddHostedService<RefreshTokenCleanupJob>();
+builder.Services.AddScoped<IGameUserInitializer, GameUserInitializer>();
+builder.Services.AddScoped<IUserLoadDataService, UserLoadDataService>();
+
 
 var app = builder.Build();
 

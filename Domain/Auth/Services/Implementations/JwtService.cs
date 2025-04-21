@@ -44,4 +44,26 @@ public class JwtService : IJwtService
 
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
+
+    public long GetUserIdFromClaims(ClaimsPrincipal user)
+    {
+        var userIdClaim = user.FindFirst(ClaimTypes.NameIdentifier);
+        if (userIdClaim == null || !long.TryParse(userIdClaim.Value, out var userId))
+        {
+            throw new ApiException(AuthErrorCodes.InvalidCredentials);
+        }
+
+        return userId;
+    }
+
+    public string? GetUserRoleFromClaims(ClaimsPrincipal user)
+    {
+        var roleClaim = user.FindFirst(ClaimTypes.Role);
+        if (roleClaim == null)
+        {
+            throw new ApiException(AuthErrorCodes.InvalidCredentials);
+        }
+
+        return user.FindFirst(ClaimTypes.Role)?.Value;
+    }
 }

@@ -25,8 +25,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Domain\Game\Exception\" />
+    <Folder Include="Domain\Game\Services\" />
     <Folder Include="Gobal\Configs\" />
-    <Folder Include="Domain\Game\" />
   </ItemGroup>
 
 </Project>
