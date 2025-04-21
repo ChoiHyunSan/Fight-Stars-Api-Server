@@ -15,6 +15,34 @@
 public class AppDbContext : DbContext
 {
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
+
+    // Auth Entities
     public DbSet<AuthUser> AuthUser { get; set; } 
-    public DbSet<RefreshToken> RefreshToken { get; set; } 
+    public DbSet<RefreshToken> RefreshToken { get; set; }
+
+
+    // Game Entities
+    public DbSet<GameUser> GameUsers => Set<GameUser>();
+    public DbSet<UserCurrency> UserCurrencies => Set<UserCurrency>();
+    public DbSet<UserStats> UserStats => Set<UserStats>();
+    public DbSet<Item> Items => Set<Item>();
+    public DbSet<UserInventory> UserInventories => Set<UserInventory>();
+    public DbSet<Brawler> Brawlers => Set<Brawler>();
+    public DbSet<UserBrawler> UserBrawlers => Set<UserBrawler>();
+    public DbSet<UserBattleHistory> UserBattleHistories => Set<UserBattleHistory>();
+    public DbSet<Mission> Missions => Set<Mission>();
+    public DbSet<UserMissionProgress> UserMissionProgresses => Set<UserMissionProgress>();
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        // 복합키 설정
+        modelBuilder.Entity<UserInventory>()
+            .HasKey(x => new { x.GameUserId, x.ItemId });
+
+        modelBuilder.Entity<UserBrawler>()
+            .HasKey(x => new { x.GameUserId, x.BrawlerId });
+
+        modelBuilder.Entity<UserMissionProgress>()
+            .HasKey(x => new { x.GameUserId, x.MissionId });
+    }
 }
