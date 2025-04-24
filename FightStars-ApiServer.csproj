@@ -20,6 +20,7 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="8.0.0" />
+    <PackageReference Include="StackExchange.Redis" Version="2.8.31" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="8.1.1" />
   </ItemGroup>
@@ -27,7 +28,6 @@
   <ItemGroup>
     <Folder Include="Domain\Game\Exception\" />
     <Folder Include="Domain\Game\Services\" />
-    <Folder Include="Gobal\Configs\" />
   </ItemGroup>
 
 </Project>
