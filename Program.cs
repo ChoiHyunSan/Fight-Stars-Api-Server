@@ -6,6 +6,7 @@ using Microsoft.OpenApi.Models;
 using System.Text;
 using Microsoft.Extensions.Options;
 using StackExchange.Redis;
+using Domain.Game.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -94,7 +95,16 @@ builder.Services.Configure<RedisConfig>(
 builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
 {
     var config = sp.GetRequiredService<IOptions<RedisConfig>>().Value;
-    return ConnectionMultiplexer.Connect(config.ConnectionString);
+
+    var options = new ConfigurationOptions
+    {
+        EndPoints = { $"{config.Host}:{config.Port}" },
+        Password = config.Password,
+        AbortOnConnectFail = false,
+        ConnectRetry = 3
+    };
+
+    return ConnectionMultiplexer.Connect(options);
 });
 
 // 4. 의존성 주입 (DI)
@@ -106,7 +116,9 @@ builder.Services.AddScoped<IRefreshTokenService, RefreshTokenService>();
 builder.Services.AddHostedService<RefreshTokenCleanupJob>();
 builder.Services.AddScoped<IGameUserInitializer, GameUserInitializer>();
 builder.Services.AddScoped<IUserLoadDataService, UserLoadDataService>();
-
+builder.Services.AddSingleton<MatchWebSocketHandler>();
+builder.Services.AddSingleton<MatchManager>();
+builder.Services.AddSingleton<RoomDispatcher>();
 
 var app = builder.Build();
 
@@ -121,6 +133,22 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseMiddleware<GlobalExceptionMiddleware>(); // 예외 처리 미들웨어는 가장 위에
+
+app.UseWebSockets(); // 반드시 먼저 등록
+
+app.Map("/ws/match", async context =>
+{
+    if (context.WebSockets.IsWebSocketRequest)
+    {
+        var socket = await context.WebSockets.AcceptWebSocketAsync();
+        var handler = context.RequestServices.GetRequiredService<MatchWebSocketHandler>();
+        await handler.HandleAsync(socket);
+    }
+    else
+    {
+        context.Response.StatusCode = 400;
+    }
+});
 
 app.UseHttpsRedirection();
 app.UseRouting();

@@ -25,6 +25,7 @@ public class UserLoadDataService : IUserLoadDataService
 
         return new UserLoadDataResponse
         {
+            UserId = user.AccountId,
             Nickname = user.Nickname,
             Avatar = user.Avatar,
             Currency = new UserCurrencyDto
