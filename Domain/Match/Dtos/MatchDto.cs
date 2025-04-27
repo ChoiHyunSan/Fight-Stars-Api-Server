@@ -1,6 +1,8 @@
 ﻿public class MatchRequest
 {
     public long UserId { get; set; }
+
+    public string JwtToken { get; set; } = string.Empty;
     public int CharacterId { get; set; }
 
     public int SkinId { get; set; }

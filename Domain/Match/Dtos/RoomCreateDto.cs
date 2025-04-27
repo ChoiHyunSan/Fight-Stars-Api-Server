@@ -1,7 +1,14 @@
 ﻿public class RoomCreateRequest
 {
     public string Mode { get; set; }
-    public List<long> UserIds { get; set; } = new List<long>();
+    public List<UserGameInfo> UserInfos { get; set; } = new List<UserGameInfo>();
+}
+
+public class UserGameInfo
+{
+    public long UserId { get; set; }
+    public int CharacterId { get; set; }
+    public int SkinId { get; set; }
 }
 
 public class RoomCreateResponse

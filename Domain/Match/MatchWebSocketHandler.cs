@@ -24,14 +24,13 @@ public class MatchWebSocketHandler
             if (result.MessageType == WebSocketMessageType.Text)
             {
                 var json = Encoding.UTF8.GetString(buffer, 0, result.Count);
-
                 try
                 {
                     var request = JsonSerializer.Deserialize<MatchRequest>(json);
                     if (request != null)
                     {
                         // TODO : 유저 검증 로직 추가
-
+                        Console.WriteLine($"MatchRequest! UserID : {request.UserId}, {request.SkinId}");
                         await _matchManager.EnqueueAsync(request, socket);
                     }
                 }

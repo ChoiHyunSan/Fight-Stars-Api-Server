@@ -10,12 +10,12 @@ public class RoomDispatcher
         _httpClient = new HttpClient();
     }
 
-    public async Task<RoomCreateResponse> CreateRoomAsync(List<long> userIds, string mode)
+    public async Task<RoomCreateResponse> CreateRoomAsync(List<UserGameInfo> users, string mode)
     {
         var request = new RoomCreateRequest
         {
             Mode = mode,
-            UserIds = userIds
+            UserInfos = users
         };
         var json = JsonSerializer.Serialize(request);
 
