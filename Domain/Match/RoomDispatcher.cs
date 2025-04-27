@@ -7,16 +7,17 @@ public class RoomDispatcher
 
     public RoomDispatcher()
     {
-        _httpClient = new HttpClient(); // 필요시 IHttpClientFactory로 개선 가능
+        _httpClient = new HttpClient();
     }
 
-    public async Task<object> CreateRoomAsync(List<long> userIds, string mode)
+    public async Task<RoomCreateResponse> CreateRoomAsync(List<long> userIds, string mode)
     {
-        var json = JsonSerializer.Serialize(new
+        var request = new RoomCreateRequest
         {
-            userIds,
-            mode
-        });
+            Mode = mode,
+            UserIds = userIds
+        };
+        var json = JsonSerializer.Serialize(request);
 
         var content = new StringContent(json, Encoding.UTF8, "application/json");
 
@@ -25,6 +26,8 @@ public class RoomDispatcher
         response.EnsureSuccessStatusCode();
 
         var result = await response.Content.ReadAsStringAsync();
-        return JsonSerializer.Deserialize<object>(result)!;
+        Console.Write($"CreateRoomAsync Result: {result}");
+
+        return JsonSerializer.Deserialize<RoomCreateResponse>(result)!;
     }
 }

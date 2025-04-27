@@ -96,11 +96,13 @@ public class MatchManager
         }
 
         var roomInfo = await _roomDispatcher.CreateRoomAsync(validUserIds, normalizedMode);
-
-        var resultJson = JsonSerializer.Serialize(new
+        Console.WriteLine($"Room Info : {roomInfo}");
+        var resultJson = JsonSerializer.Serialize(new MatchResponse
         {
-            eventType = "matchSuccess",
-            data = roomInfo
+            roomId = roomInfo.roomId,
+            password = roomInfo.password,
+            ip = roomInfo.ip,
+            port = roomInfo.port
         });
 
         var buffer = Encoding.UTF8.GetBytes(resultJson);

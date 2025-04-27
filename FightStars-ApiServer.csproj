@@ -27,6 +27,7 @@
 
   <ItemGroup>
     <Folder Include="Domain\Game\Exception\" />
+    <Folder Include="Domain\Game\Services\" />
   </ItemGroup>
 
 </Project>
