@@ -16,7 +16,7 @@ public class MatchManager
     // 모드별 매칭 인원 수 설정
     public static readonly Dictionary<string, int> MatchRequirements = new()
     {
-        { "deathmatch", 1 },
+        { "deathmatch", 2 },
         { "occupation", 1 },
     };
 
