@@ -11,7 +11,6 @@ public class UserInventory
     public long GameUserId { get; set; }
     public int ItemId { get; set; }
     public int Quantity { get; set; } = 1;
-
     public GameUser? GameUser { get; set; }
     public Item? Item { get; set; }
 }

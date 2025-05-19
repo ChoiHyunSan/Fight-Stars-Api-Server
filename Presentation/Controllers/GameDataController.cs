@@ -20,13 +20,16 @@ public class GameDataController : ControllerBase
 {
     private readonly IUserLoadDataService _userLoadDataService;
     private readonly IJwtService _jwtService;
+    private readonly IGameDataService _gameDataService;
 
     public GameDataController(
         IUserLoadDataService userLoadDataService,
-        IJwtService jwtService)
+        IJwtService jwtService,
+        IGameDataService gameDataService)
     {
         _userLoadDataService = userLoadDataService;
         _jwtService = jwtService;
+        _gameDataService = gameDataService;
     }
 
     [HttpGet("load")]
@@ -38,5 +41,17 @@ public class GameDataController : ControllerBase
         return Ok(userData);
     }
 
+    [HttpGet("shop")]
+    public async Task<IActionResult> GetShopData()
+    {
+        await _gameDataService.CreateGameDataFileAsync();
+        return Ok();
+    }
 
+    [HttpPost("result")]
+    public async Task<IActionResult> GetResultData([FromBody] CreateGameResultRequest request)
+    {
+        var resultData = await _userLoadDataService.CreateGameResultAsync(request);
+        return Ok(resultData);
+    }
 }

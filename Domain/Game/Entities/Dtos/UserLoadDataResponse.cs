@@ -4,6 +4,7 @@
 // Description
 // : 유저가 로그인 후 로딩화면에서 불러올 전체 데이터를 담는 DTO
 // Author : ChoiHyunSan
+
 public class UserLoadDataResponse
 {
     public long UserId { get; set; }
@@ -13,6 +14,7 @@ public class UserLoadDataResponse
     public UserStatsDto Stats { get; set; } = new();
     public List<UserInventoryDto> Inventory { get; set; } = new();
     public List<UserBrawlerDto> Brawlers { get; set; } = new();
+    public UserSkinDto Skins { get; set; } = new();
 }
 
 public class UserCurrencyDto
@@ -45,4 +47,20 @@ public class UserBrawlerDto
     public int Level { get; set; }
     public int Trophy { get; set; }
     public int PowerPoint { get; set; }
+
+    public static UserBrawlerDto Create(UserBrawler newUserBrawler)
+    {
+        return new UserBrawlerDto
+        {
+            BrawlerId = newUserBrawler.BrawlerId,
+            Level = newUserBrawler.Level,
+            PowerPoint = newUserBrawler.PowerPoint,
+            Trophy = newUserBrawler.Trophy
+        };
+    }
+}
+
+public class UserSkinDto
+{
+    public List<int> SkinIds { get; set; } = new(); 
 }

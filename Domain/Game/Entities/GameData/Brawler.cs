@@ -13,6 +13,6 @@ public class Brawler
     public int Id { get; set; }
     public string Name { get; set; } = string.Empty;
     public string? Description { get; set; }
-
+    public int goldPrice { get; set; }
     public List<UserBrawler> UserBrawlers { get; set; } = new();
 }

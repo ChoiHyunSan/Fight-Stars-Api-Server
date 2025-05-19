@@ -1,0 +1,44 @@
+[
+  {
+    "Id": 1,
+    "BrawlerId": 1,
+    "Name": "Default Shelly",
+    "Description": "\uAE30\uBCF8 \uC178\uB9AC \uC2A4\uD0A8",
+    "zemPrice": 0
+  },
+  {
+    "Id": 2,
+    "BrawlerId": 1,
+    "Name": "Bandita Shelly",
+    "Description": "\uBC34\uB514\uD0C0 \uC2A4\uD0C0\uC77C\uC758 \uC178\uB9AC \uC2A4\uD0A8",
+    "zemPrice": 100
+  },
+  {
+    "Id": 3,
+    "BrawlerId": 2,
+    "Name": "Default Colt",
+    "Description": "\uAE30\uBCF8 \uCF5C\uD2B8 \uC2A4\uD0A8",
+    "zemPrice": 0
+  },
+  {
+    "Id": 4,
+    "BrawlerId": 2,
+    "Name": "Rockstar Colt",
+    "Description": "\uB77D\uC2A4\uD0C0 \uCF58\uC149\uD2B8\uC758 \uCF5C\uD2B8 \uC2A4\uD0A8",
+    "zemPrice": 200
+  },
+  {
+    "Id": 5,
+    "BrawlerId": 3,
+    "Name": "Default Bull",
+    "Description": "\uAE30\uBCF8 \uBD88 \uC2A4\uD0A8",
+    "zemPrice": 0
+  },
+  {
+    "Id": 6,
+    "BrawlerId": 3,
+    "Name": "Linebacker Bull",
+    "Description": "\uBBF8\uC2DD\uCD95\uAD6C \uC120\uC218 \uC2A4\uD0C0\uC77C\uC758 \uBD88 \uC2A4\uD0A8",
+    "zemPrice": 300
+  }
+]

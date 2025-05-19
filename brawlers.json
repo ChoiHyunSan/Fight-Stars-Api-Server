@@ -1,0 +1,20 @@
+[
+  {
+    "Id": 1,
+    "Name": "Shelly",
+    "Description": "\uC0F7\uAC74\uC744 \uC0AC\uC6A9\uD558\uB294 \uC911\uAC70\uB9AC \uC804\uD22C \uCE90\uB9AD\uD130",
+    "goldPrice": 1000
+  },
+  {
+    "Id": 2,
+    "Name": "Colt",
+    "Description": "\uC30D\uAD8C\uCD1D\uC744 \uC0AC\uC6A9\uD558\uB294 \uC7A5\uAC70\uB9AC \uB51C\uB7EC",
+    "goldPrice": 2000
+  },
+  {
+    "Id": 3,
+    "Name": "Bull",
+    "Description": "\uCCB4\uB825\uC774 \uB192\uACE0 \uADFC\uC811\uC5D0 \uAC15\uD55C \uCE90\uB9AD\uD130",
+    "goldPrice": 3000
+  }
+]

@@ -119,6 +119,8 @@ builder.Services.AddScoped<IUserLoadDataService, UserLoadDataService>();
 builder.Services.AddSingleton<MatchWebSocketHandler>();
 builder.Services.AddSingleton<MatchManager>();
 builder.Services.AddSingleton<RoomDispatcher>();
+builder.Services.AddScoped<IGameDataService, GameDataService>();
+builder.Services.AddScoped<IShopService, ShopService>();
 
 var app = builder.Build();
 

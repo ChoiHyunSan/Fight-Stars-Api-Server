@@ -25,9 +25,4 @@
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="8.1.1" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Domain\Game\Exception\" />
-    <Folder Include="Domain\Game\Services\" />
-  </ItemGroup>
-
 </Project>

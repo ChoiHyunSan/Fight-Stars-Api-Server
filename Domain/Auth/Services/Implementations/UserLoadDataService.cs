@@ -9,6 +9,44 @@ public class UserLoadDataService : IUserLoadDataService
         _db = db;
     }
 
+    public async Task<CreateGameResultResponse> CreateGameResultAsync(CreateGameResultRequest request)
+    {
+        await using var transaction = await _db.Database.BeginTransactionAsync();
+
+        CreateGameResultResponse response = new CreateGameResultResponse();
+
+        foreach (var info in request.PlayerGameResults)
+        {
+            var user = await _db.GameUsers
+                .Include(u => u.Stats)
+                .Include(u => u.Currency)
+                .FirstOrDefaultAsync(u => u.AccountId == info.PlayerId);
+            if (user == null || user.Stats == null || user.Currency == null)
+            {
+                throw new ApiException(AuthErrorCodes.UserNotFound);
+            }
+            user.UpdateGameResult(info);
+
+            UserGameResultData userGameResult = new UserGameResultData
+            {
+                UserId = user.AccountId,
+                WinCount = user.Stats.WinCount,
+                LoseCount = user.Stats.LoseCount,
+                TotalPlayCount = user.Stats.TotalPlayCount,
+                Gold = user.Currency.Gold,
+                Energy = user.Currency.Energy,
+                Exp = user.Currency.Exp,
+                Level = user.Stats.Level
+            };
+            response.UserGameResults.Add(userGameResult);
+        }
+
+        await _db.SaveChangesAsync();
+        await transaction.CommitAsync();
+
+        return response;
+    }
+
     public async Task<UserLoadDataResponse> LoadUserDataAsync(long userId)
     {
         var user = await _db.GameUsers
@@ -16,6 +54,7 @@ public class UserLoadDataService : IUserLoadDataService
             .Include(u => u.Stats)
             .Include(u => u.Inventories)
             .Include(u => u.Brawlers)
+            .Include(u => u.Skins)
             .FirstOrDefaultAsync(u => u.AccountId == userId);
 
         if (user == null)
@@ -55,7 +94,11 @@ public class UserLoadDataService : IUserLoadDataService
                 Level = b.Level,
                 Trophy = b.Trophy,
                 PowerPoint = b.PowerPoint
-            }).ToList()
+            }).ToList(),
+            Skins = new UserSkinDto
+            {
+                SkinIds = user.Skins.Select(s => s.SkinId).ToList()
+            }
         };
     }
 }

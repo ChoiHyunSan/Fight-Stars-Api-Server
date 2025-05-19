@@ -21,10 +21,21 @@ public class GameUser
     public DateTime LastLoginAt { get; set; } = DateTime.UtcNow;
     public bool IsBanned { get; set; } = false;
 
-    public UserCurrency? Currency { get; set; }
+    public UserCurrency Currency { get; set; }
     public UserStats? Stats { get; set; }
     public List<UserInventory> Inventories { get; set; } = new();
     public List<UserBrawler> Brawlers { get; set; } = new();
+    public List<UserSkin> Skins { get; set; } = new();
     public List<UserBattleHistory> BattleHistories { get; set; } = new();
     public List<UserMissionProgress> MissionProgresses { get; set; } = new();
+
+    public void UpdateGameResult(PlayerGameResultData info)
+    {
+        Stats.TotalPlayCount++;
+        Stats.WinCount += info.IsWin ? 1 : 0;
+        Stats.LoseCount += !info.IsWin ? 1 : 0;
+        Currency.Gold += info.Gold;
+        Currency.Exp += info.Exp;
+        Currency.Energy -= 0; // TODO: 게임 결과에 따라 에너지 차감 로직 추가 필요
+    }
 }
