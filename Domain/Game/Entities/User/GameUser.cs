@@ -35,7 +35,16 @@ public class GameUser
         Stats.WinCount += info.IsWin ? 1 : 0;
         Stats.LoseCount += !info.IsWin ? 1 : 0;
         Currency.Gold += info.Gold;
+    
+        // 경험치를 토대로 레벨업이 된다.
         Currency.Exp += info.Exp;
+        const int levelUpExp = 400;
+        if (Currency.Exp >= levelUpExp)
+        {
+            Stats.Level += Currency.Exp / levelUpExp;
+            Currency.Exp %= levelUpExp;
+        }
+        
         Currency.Energy -= 0; // TODO: 게임 결과에 따라 에너지 차감 로직 추가 필요
     }
 }
