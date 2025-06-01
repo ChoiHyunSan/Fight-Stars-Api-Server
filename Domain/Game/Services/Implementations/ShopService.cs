@@ -65,6 +65,7 @@ public class ShopService : IShopService
         gameUser.Brawlers.Add(newUserBrawler);
 
         await _context.SaveChangesAsync();
+
         return new BuyCharacterResponse()
         {
             Brawler = UserBrawlerDto.Create(newUserBrawler),

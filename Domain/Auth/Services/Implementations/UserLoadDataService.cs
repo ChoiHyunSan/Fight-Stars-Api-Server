@@ -11,7 +11,7 @@ public class UserLoadDataService : IUserLoadDataService
 
     public async Task<CreateGameResultResponse> CreateGameResultAsync(CreateGameResultRequest request)
     {
-        await using var transaction = await _context.Database.BeginTransactionAsync();
+        // await using var transaction = await _context.Database.BeginTransactionAsync();
 
         CreateGameResultResponse response = new CreateGameResultResponse();
 
@@ -42,7 +42,7 @@ public class UserLoadDataService : IUserLoadDataService
         }
 
         await _context.SaveChangesAsync();
-        await transaction.CommitAsync();
+        // await transaction.CommitAsync();
 
         return response;
     }

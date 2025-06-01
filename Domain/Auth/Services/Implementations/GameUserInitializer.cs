@@ -1,15 +1,15 @@
 ﻿public class GameUserInitializer : IGameUserInitializer
 {
-    private readonly AppDbContext _db;
+    private readonly AppDbContext _context;
 
-    public GameUserInitializer(AppDbContext db)
+    public GameUserInitializer(AppDbContext context)
     {
-        _db = db;
+        _context = context;
     }
 
     public async Task InitializeNewUserAsync(long accountId, string nickname)
     {
-        await using var transaction = await _db.Database.BeginTransactionAsync();
+        await using var transaction = await _context.Database.BeginTransactionAsync();
 
         var user = new GameUser
         {
@@ -19,10 +19,10 @@
             LastLoginAt = DateTime.UtcNow
         };
 
-        _db.GameUsers.Add(user);
-        await _db.SaveChangesAsync(); // user.Id 확보
+        _context.GameUsers.Add(user);
+        await _context.SaveChangesAsync(); // user.Id 확보
 
-        _db.UserCurrencies.Add(new UserCurrency
+        _context.UserCurrencies.Add(new UserCurrency
         {
             GameUserId = user.Id,
             Gold = 500,
@@ -31,7 +31,7 @@
             Exp = 0
         });
 
-        _db.UserStats.Add(new UserStats
+        _context.UserStats.Add(new UserStats
         {
             GameUserId = user.Id,
             Level = 1,
@@ -42,7 +42,8 @@
             CurrentTrophy = 0
         });
 
-        await _db.SaveChangesAsync();
+        await _context.SaveChangesAsync();
         await transaction.CommitAsync();
     }
+
 }
