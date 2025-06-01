@@ -2,22 +2,22 @@
 
 public class UserLoadDataService : IUserLoadDataService
 {
-    private readonly AppDbContext _db;
+    private readonly AppDbContext _context;
 
-    public UserLoadDataService(AppDbContext db)
+    public UserLoadDataService(AppDbContext context)
     {
-        _db = db;
+        _context = context;
     }
 
     public async Task<CreateGameResultResponse> CreateGameResultAsync(CreateGameResultRequest request)
     {
-        await using var transaction = await _db.Database.BeginTransactionAsync();
+        await using var transaction = await _context.Database.BeginTransactionAsync();
 
         CreateGameResultResponse response = new CreateGameResultResponse();
 
         foreach (var info in request.PlayerGameResults)
         {
-            var user = await _db.GameUsers
+            var user = await _context.GameUsers
                 .Include(u => u.Stats)
                 .Include(u => u.Currency)
                 .FirstOrDefaultAsync(u => u.AccountId == info.PlayerId);
@@ -41,7 +41,7 @@ public class UserLoadDataService : IUserLoadDataService
             response.UserGameResults.Add(userGameResult);
         }
 
-        await _db.SaveChangesAsync();
+        await _context.SaveChangesAsync();
         await transaction.CommitAsync();
 
         return response;
@@ -49,7 +49,7 @@ public class UserLoadDataService : IUserLoadDataService
 
     public async Task<UserLoadDataResponse> LoadUserDataAsync(long userId)
     {
-        var user = await _db.GameUsers
+        var user = await _context.GameUsers
             .Include(u => u.Currency)
             .Include(u => u.Stats)
             .Include(u => u.Inventories)
