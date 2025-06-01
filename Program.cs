@@ -33,6 +33,9 @@ app.UseCustomMiddlewares();
 // WebSocket 핸들러 등록
 app.MapWebSocketHandlers();
 
+// 앱 시작 전, 데이터 세팅
+app.WebStartup();
+
 app.UseHttpsRedirection();
 app.UseRouting();
 app.UseAuthentication();

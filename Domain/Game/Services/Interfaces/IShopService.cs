@@ -2,4 +2,6 @@
 {
     Task<BuyCharacterResponse> BuyCharacter(int userId, BuyCharacterRequest request);
     Task<BuySkinResponse> BuySkin(int userId, BuySkinRequest request);
+
+    Task LoadShopDataToRedisAsync();
 }
