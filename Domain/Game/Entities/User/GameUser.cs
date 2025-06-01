@@ -27,8 +27,6 @@ public class GameUser
     public List<UserBrawler> Brawlers { get; set; } = new();
     public List<UserSkin> Skins { get; set; } = new();
     public List<UserBattleHistory> BattleHistories { get; set; } = new();
-    public List<UserMissionProgress> MissionProgresses { get; set; } = new();
-
     public void UpdateGameResult(PlayerGameResultData info)
     {
         Stats.TotalPlayCount++;
